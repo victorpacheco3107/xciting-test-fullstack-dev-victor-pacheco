@@ -70,6 +70,7 @@ The project includes a `docker-compose.yml` file that defines the services for t
    ```bash
    docker-compose up --build
    ```
+Note: Ensure that the ports 80, 3000, and 5432 are not in use on your host machine before run this command.
 
 4. **Access the applications**:
    - Game Launcher: [http://localhost/play/{game-code}](http://localhost/play/{game-code})
