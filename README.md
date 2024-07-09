@@ -51,12 +51,12 @@ The project includes a `docker-compose.yml` file that defines the services for t
 
 1. **Clone the repository**:
    ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+   git clone git@github.com:victorpacheco3107/xciting-test-fullstack-dev-victor-pacheco.git
+   cd xciting-test-fullstack-dev-victor-pacheco
    ```
 
 2. **Set up environment variables**:
-   Ensure you have a `.env` file at the root level with the following content:
+   Ensure you have a `.env` file at the `backoffice-assignment` folder with the following content:
    ```env
    DB_USER=postgres
    DB_PASSWORD=postgres
