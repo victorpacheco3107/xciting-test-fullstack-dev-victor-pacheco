@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Games Launched Today</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Games Launched Today</h1>
+
+    <div class="form-group">
+        <input type="text" class="form-control" id="searchInput" placeholder="Search for games..." value="<%= search %>" onkeydown="if(event.key === 'Enter') { window.location.href = '/games?page=1&limit=<%= limit %>&search=' + this.value; }">
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Session ID</th>
+                <th>Game Code</th>
+                <th>Redirect Url</th>
+                <th>Language</th>
+                <th>Created At</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% games.forEach(game => { %>
+                <tr class="clickable-row" data-toggle="collapse" data-target="#details-<%= game.id %>" aria-expanded="false" aria-controls="details-<%= game.id %>">
+                    <td><%= game.session_id %></td>
+                    <td><%= game.game_code %></td>
+                    <td><%= game.redirect_url %></td>
+                    <td><%= game.language %></td>
+                    <td><%= new Date(game.created_at).toLocaleString() %></td>
+                </tr>
+                <tr id="details-<%= game.id %>" class="collapse">
+                    <td colspan="5">
+                        <div><strong>ID:</strong> <%= game.id %></div>
+                        <div><strong>Client IP:</strong> <%= game.client_ip %></div>
+                        <div><strong>Referer:</strong> <%= game.referer %></div>
+                        <div><strong>Request URL:</strong> <%= game.request_url %></div>
+                        <div><strong>User Agent:</strong> <%= game.user_agent %></div>
+                    </td>
+                </tr>
+            <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <% for(let i = 1; i <= totalPages; i++) { %>
+                <li class="page-item <%= i === page ? 'active' : '' %>">
+                    <a class="page-link" href="/games?page=<%= i %>&limit=<%= limit %>&search=<%= search %>"><%= i %></a>
+                </li>
+            <% } %>
+        </ul>
+    </nav>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const rows = document.querySelectorAll('.clickable-row');
+        rows.forEach(row => {
+            row.style.cursor = 'pointer';
+            row.addEventListener('click', () => {
+                const target = row.getAttribute('data-target');
+                $(target).collapse('toggle');
+            });
+        });
+    });
+</script>
+</body>
+</html>
